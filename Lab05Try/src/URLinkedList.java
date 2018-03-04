@@ -97,19 +97,25 @@ public class URLinkedList<E> implements URList<E>{
 		}
 		return false;
 	}
-asd;
+
 	@Override
 	public boolean containsAll(Collection c) {
 		E[] a=(E[])c.toArray();
 		URNode<E> curr = head;
 		int counter=0;
 		for (int i=0;i<(a.length-1);i++){
-			for (int j;j<size;j++){
-				a[i]
+			for (int j = 0;j<size;j++){
+				if (a[i].equals(curr)){
+					counter++;
+					break;
+				}
 			}
-			a[i]
+			
 		}
-		return false;
+		if (a.length==counter){
+			return true;
+		}else{
+		return false;}
 	}
 
 	@Override
