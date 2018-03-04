@@ -178,11 +178,15 @@ public class URArrayList<E> implements URList<E> {
 		if (c == null) {
 			throw new NullPointerException();
 		}
+		E[] a=(E[])c.toArray();
 		if (!containsAll(c)) {
 			return false;
-		}
-		remove(indexOf(c));
+		}else{
+			for (int i=0;i<a.length;i++)
+		remove(indexOf(a[i]));
 		return true;
+		}
+		
 	}
 //works
 	@Override
