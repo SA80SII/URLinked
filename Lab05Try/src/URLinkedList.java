@@ -126,12 +126,14 @@ public class URLinkedList<E> implements URList<E>{
 		E[] a=(E[])c.toArray();
 		URNode<E> curr = head;
 		int counter=0;
-		for (int i=0;i<(a.length-1);i++){
+		for (int i=0;i<(a.length);i++){
+			curr=head;
 			for (int j = 0;j<size;j++){
-				if (a[i].equals(curr)){
+				if (a[i].equals(curr.element())){
 					counter++;
 					break;
 				}
+				curr=curr.next();
 			}
 			
 		}
@@ -246,23 +248,58 @@ public class URLinkedList<E> implements URList<E>{
 	@Override
 	public boolean remove(Object o) {
 		URNode<E> node = head;
+		URNode<E> front;
+		URNode<E> back;
+		
 		int i=0;
 		for (int j=0;j<size;j++){
-			if (node.element()==o){
-				i=1;
-				return true;
+			if (node.equals(o)){
+				if (node==tail){
+					front=node.prev();
+					front.setNext(null);
+					tail=front;	
+				}else if (node==head){
+					front=node.next();
+					front.setPrev(null);
+					head=front;
+				}else{
+					front=node.prev();
+					back=node.next();
+					front.setNext(back);
+					back.setPrev(front);
+				}
+				size--;
+				i++;
+				break;
 				
 			}
 			node=node.next();
 		}
-
-	 return false;
+		if (i==0){
+	 return false;}
+		else{
+			return true;}
 	}
 
 	@Override
 	public boolean removeAll(Collection c) {
-		// TODO Auto-generated method stub
-		return false;
+		if (containsAll(c)==true){
+		E[] a=(E[])c.toArray();
+		URNode<E> curr = head;
+		int counter=0;
+		for (int i=0;i<(a.length);i++){
+			curr=head;
+			for (int j = 0;j<size;j++){
+				if (a[i].equals(curr.element())){
+					remove(curr);
+					break;
+				}
+				curr=curr.next();
+			}
+			
+		}
+		return true;
+		}else return false;
 	}
 
 	@Override
