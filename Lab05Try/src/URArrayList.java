@@ -2,7 +2,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
-import URList.URNode;
 
 public class URArrayList<E> implements URList<E> {
 
