@@ -2,6 +2,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
+import URList.URNode;
+
 public class URArrayList<E> implements URList<E> {
 
 	private int size;
@@ -207,8 +209,14 @@ public class URArrayList<E> implements URList<E> {
 //?
 	@Override
 	public URList subList(int fromIndex, int toIndex) {
-		// TODO Auto-generated method stub
-		return null;
+		if (fromIndex<0||toIndex<0||fromIndex>(size()-1)||toIndex>(size()-1)){
+			throw new IndexOutOfBoundsException();
+		}
+		URList<E> a = new URArrayList<E>();
+		for (int i=fromIndex;i<toIndex;i++){
+			a.add((E)data[i]);
+		}
+		return a;
 	}
 
 //works
