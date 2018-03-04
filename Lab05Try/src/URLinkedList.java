@@ -68,14 +68,26 @@ public class URLinkedList<E> implements URList<E>{
 
 	@Override
 	public boolean addAll(Collection c) {
-		// TODO Auto-generated method stub
-		return false;
+		E[] a=(E[])c.toArray();
+		URNode<E> curr = tail;
+		for (int i=0;i<a.length;i++){
+			URNode<E> next=new URNode<E>(a[i],curr,null);
+			curr.setNext(next);
+			curr=curr.next();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean addAll(int index, Collection c) {
-		// TODO Auto-generated method stub
-		return false;
+		E[] a=(E[])c.toArray();
+		URNode<E> curr = tail;
+		for (int i=0;i<a.length;i++){
+			URNode<E> next=new URNode<E>(a[i],curr,null);
+			curr.setNext(next);
+			curr=curr.next();
+		}
+		return true;
 	}
 
 	@Override
