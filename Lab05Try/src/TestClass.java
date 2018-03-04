@@ -20,16 +20,12 @@ public class TestClass {
         al2.add("Text3");
 		list.addAll(3,al2);
 		
-//
-//		System.out.println(list.isEmpty());
+
 
 		System.out.println(Arrays.toString(list.toArray()));
-		System.out.println(list.removeAll(al2));
-		System.out.println(list.containsAll(al2));
-		System.out.println(Arrays.toString(list.toArray()));
-//		list.clear();
-//		System.out.println(list.isEmpty());
-//		System.out.println(Arrays.toString(list.toArray()));
-			}
-
+		
+			URList<E> list2=new URLinkedList<E>();
+			list2=(URList<E>) list.subList(2, 4);
+		System.out.println(Arrays.toString(list2.toArray()));
+}
 }
