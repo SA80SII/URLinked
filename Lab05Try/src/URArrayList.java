@@ -40,13 +40,25 @@ public class URArrayList<E> implements URList<E> {
 
 	@Override
 	public boolean addAll(Collection c) {
-		// TODO Auto-generated method stub
-		return false;
+		addAll(size, c);
+		return true;
 	}
 
 	@Override
 	public boolean addAll(int index, Collection c) {
-		// TODO Auto-generated method stub
+		if (index < 0 || index > size) {
+			throw new ArrayIndexOutOfBoundsException(index);
+		}
+		if (c == null) {
+			throw new NullPointerException();
+		}
+
+		ensureCapacity(size + c.size());
+		for (int i = size; i > index; i--) {
+			data[i] = data[i - 1];
+		}
+		data[index] = c;
+		size++;
 		return false;
 	}
 
@@ -69,9 +81,11 @@ public class URArrayList<E> implements URList<E> {
 
 	@Override
 	public boolean containsAll(Collection c) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		     for (Object e : c)
+		            if (!contains(e))
+		                return false;
+		    return true;
+		}
 
 	@Override
 	public E get(int index) {
@@ -127,13 +141,19 @@ public class URArrayList<E> implements URList<E> {
 			return false;
 		}
 		remove(indexOf(o));
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean removeAll(Collection c) {
-		// TODO Auto-generated method stub
-		return false;
+		if (c == null) {
+			throw new NullPointerException();
+		}
+		if (!containsAll(c)) {
+			return false;
+		}
+		remove(indexOf(c));
+		return true;
 	}
 
 	@Override
@@ -155,15 +175,18 @@ public class URArrayList<E> implements URList<E> {
 
 	@Override
 	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+		Object[] k = new Object [size];
+		for (int i = 0; i< size; i++) {
+			k[i] = data[i];
+		}
+		return k;
 	}
 
 	// Increases the capacity of this ArrayList instance, if necessary,
 	// to ensure that it can hold at least the number of elements specified
 	// by the minimum capacity argument.
 	public void ensureCapacity(int minCapacity) {
-		if (minCapacity == capacity) {
+		if (minCapacity >= capacity) {
 			capacity = capacity * 2;
 			Object tempData[] = new Object[capacity];
 			// Copy old array into new array
