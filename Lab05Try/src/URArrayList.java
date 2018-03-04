@@ -12,13 +12,13 @@ public class URArrayList<E> implements URList<E> {
 		data = new Object[capacity];
 		size = 0;
 	}
-
+//works
 	@Override
 	public boolean add(Object e) {
 		add(size, e);
 		return true;
 	}
-
+//works
 	@Override
 	public void add(int index, Object element) {
 
@@ -37,13 +37,13 @@ public class URArrayList<E> implements URList<E> {
 		size++;
 
 	}
-
+//works
 	@Override
 	public boolean addAll(Collection c) {
 		addAll(size, c);
 		return true;
 	}
-
+//works
 	@Override
 	public boolean addAll(int index, Collection c) {
 		if (index < 0 || index > size) {
@@ -61,14 +61,14 @@ public class URArrayList<E> implements URList<E> {
 		size++;
 		return false;
 	}
-
+//works
 	@Override
 	public void clear() {
 		data = new Object[capacity];
 		capacity = 10;
 		size = 0;
 	}
-
+//works
 	@Override
 	public boolean contains(Object o) {
 		for (int i = 0; i <= size; i++) {
@@ -78,15 +78,17 @@ public class URArrayList<E> implements URList<E> {
 		}
 		return false;
 	}
-
+// works, kinda. I think removeAll doesnt so it bugs.
 	@Override
 	public boolean containsAll(Collection c) {
-		     for (Object e : c)
-		            if (!contains(e))
+		     for (Object e : c) {
+		            if (!contains(e)) {
 		                return false;
+		            }
+		     }
 		    return true;
 		}
-
+//works
 	@Override
 	public E get(int index) {
 		if (index < 0 || index >= size) {
@@ -94,7 +96,7 @@ public class URArrayList<E> implements URList<E> {
 		}
 		return (E) data[index];
 	}
-
+//works
 	@Override
 	public int indexOf(Object o) {
 		if (o == null) {
@@ -107,18 +109,42 @@ public class URArrayList<E> implements URList<E> {
 		}
 		return -1;
 	}
-
+//works
 	@Override
 	public boolean isEmpty() {
 		return size == 0;
 	}
-
+// not sure
 	@Override
 	public Iterator iterator() {
 		// TODO Auto-generated method stub
-		return null;
+		return new URArrayListIterator(data);
 	}
+		private class URArrayListIterator implements Iterator<E> {
+		    private Object[] itr;
+		    private int index = 0;
+		    
+			public URArrayListIterator(Object [] x ) {
+				itr = x;
+			}
 
+			@Override
+			public boolean hasNext() {
+				 if(index < itr.length){
+			            return true;
+			        }else{
+			            return false;
+			        }
+			}
+			@Override
+			public E next() {
+				int x = index;
+				index++;
+				return (E) itr[x];
+				}
+			
+		}
+//works
 	@Override
 	public E remove(int index) {
 		if (index < 0 || index > size) {
@@ -131,7 +157,7 @@ public class URArrayList<E> implements URList<E> {
 		size--;
 		return removed;
 	}
-
+// works
 	@Override
 	public boolean remove(Object o) {
 		if (o == null) {
@@ -144,6 +170,8 @@ public class URArrayList<E> implements URList<E> {
 		return true;
 	}
 
+	
+	/// needs fixing, pls help.
 	@Override
 	public boolean removeAll(Collection c) {
 		if (c == null) {
@@ -155,25 +183,36 @@ public class URArrayList<E> implements URList<E> {
 		remove(indexOf(c));
 		return true;
 	}
-
+//works
 	@Override
 	public Object set(int index, Object element) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
+		if (index < 0 || index > size) {
+			throw new ArrayIndexOutOfBoundsException(index);
+		}
+		if (element == null) {
+			throw new NullPointerException();
+		}
+		
+		data[index] = element;
+
+	
+		return data;
+	}
+//works
 	@Override
 	public int size() {
 		return size;
 	}
-
+//?
 	@Override
 	public URList subList(int fromIndex, int toIndex) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+//works
+@Override
 	public Object[] toArray() {
 		Object[] k = new Object [size];
 		for (int i = 0; i< size; i++) {

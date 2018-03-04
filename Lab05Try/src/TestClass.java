@@ -52,9 +52,9 @@ public class TestClass {
 		System.out.println(Arrays.toString(list1.toArray()));
 		System.out.println(list1.containsAll(list2));
 		list1.removeAll(list2);
-		list1.removeAll(list2);
 
 		System.out.println(list1.containsAll(list2));
+		list1.set(0, 'k');
 		System.out.println(Arrays.toString(list1.toArray()));
 
 			}
