@@ -46,7 +46,7 @@ public class URArrayList<E> implements URList<E>{
 	}
 
 	@Override
-	public Object get(int index) {
+	public E get(int index) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -70,7 +70,7 @@ public class URArrayList<E> implements URList<E>{
 	}
 
 	@Override
-	public Object remove(int index) {
+	public E remove(int index) {
 		// TODO Auto-generated method stub
 		return null;
 	}
