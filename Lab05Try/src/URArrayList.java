@@ -92,14 +92,12 @@ public class URArrayList<E> implements URList<E> {
 		            for (int j=0;j<size;j++){
 		            	if (e.equals(data[j])){
 		            		counter++;
-		            		System.out.println(counter);
 		            		break;
 		            	}
 		                
 		            }		            
 		     }
 		     if (counter>=c.size()){
-		    	 System.out.println("counter: "+counter+" csize: "+c.size() );
 	            	return true;
 	            }else{
 		    return false;
@@ -108,15 +106,11 @@ public class URArrayList<E> implements URList<E> {
 //works
 	@Override
 	public E get(int index) {
-<<<<<<< HEAD
 		if (index < 0 || index >= size) {
 			throw new RuntimeException("OUT OF BOUNDS");
 		}
 		return (E) data[index];
-=======
-		// TODO Auto-generated method stub
-		return null;
->>>>>>> Wes
+
 	}
 //works
 	@Override
@@ -169,7 +163,6 @@ public class URArrayList<E> implements URList<E> {
 //works
 	@Override
 	public E remove(int index) {
-<<<<<<< HEAD
 		if (index < 0 || index > size) {
 			throw new ArrayIndexOutOfBoundsException(index);
 		}
@@ -179,10 +172,6 @@ public class URArrayList<E> implements URList<E> {
 		}
 		size--;
 		return removed;
-=======
-		// TODO Auto-generated method stub
-		return null;
->>>>>>> Wes
 	}
 // works
 	@Override
