@@ -108,12 +108,15 @@ public class URArrayList<E> implements URList<E> {
 //works
 	@Override
 	public E get(int index) {
+<<<<<<< HEAD
 		if (index < 0 || index >= size) {
 			throw new RuntimeException("OUT OF BOUNDS");
 		}
 		return (E) data[index];
 =======
+		// TODO Auto-generated method stub
 		return null;
+>>>>>>> Wes
 	}
 //works
 	@Override
@@ -178,6 +181,7 @@ public class URArrayList<E> implements URList<E> {
 		return removed;
 =======
 		// TODO Auto-generated method stub
+		return null;
 >>>>>>> Wes
 	}
 // works
