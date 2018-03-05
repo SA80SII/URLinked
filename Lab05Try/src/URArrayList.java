@@ -112,6 +112,8 @@ public class URArrayList<E> implements URList<E> {
 			throw new RuntimeException("OUT OF BOUNDS");
 		}
 		return (E) data[index];
+=======
+		return null;
 	}
 //works
 	@Override
@@ -164,6 +166,7 @@ public class URArrayList<E> implements URList<E> {
 //works
 	@Override
 	public E remove(int index) {
+<<<<<<< HEAD
 		if (index < 0 || index > size) {
 			throw new ArrayIndexOutOfBoundsException(index);
 		}
@@ -173,6 +176,9 @@ public class URArrayList<E> implements URList<E> {
 		}
 		size--;
 		return removed;
+=======
+		// TODO Auto-generated method stub
+>>>>>>> Wes
 	}
 // works
 	@Override

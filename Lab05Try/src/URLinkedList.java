@@ -1,5 +1,4 @@
 import java.util.Collection;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -13,7 +12,8 @@ public class URLinkedList<E> implements URList<E>{
 	@Override
 	public boolean add(E e) {
 		addLast(e);
-		return true;	
+		return true;
+		
 	}
 
 	@Override
@@ -68,20 +68,43 @@ public class URLinkedList<E> implements URList<E>{
 
 	@Override
 	public boolean addAll(Collection c) {
-		// TODO Auto-generated method stub
-		return false;
+		E[] a=(E[])c.toArray();
+		URNode<E> curr = tail;
+		for (int i=0;i<a.length;i++){
+			URNode<E> next=new URNode<E>(a[i],curr,null);
+			size++;
+			curr.setNext(next);
+			curr=curr.next();
+		}
+		tail=curr;
+		return true;
 	}
 
 	@Override
 	public boolean addAll(int index, Collection c) {
-		// TODO Auto-generated method stub
-		return false;
+		E[] a=(E[])c.toArray();
+		URNode<E> curr = head;
+		for (int j=0;j<index;j++){
+			curr=curr.next();
+		}
+		URNode<E> addlast = curr.next();
+		for (int i=0;i<a.length;i++){
+			URNode<E> next=new URNode<E>(a[i],curr,null);
+			size++;
+			curr.setNext(next);
+			curr=curr.next();
+		}
+		curr.setNext(addlast);
+		return true;
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		URNode<E> curr = head;
+		curr.setNext(null);
+		curr=tail;
+		curr.setElement(null);
+		size=0;
 	}
 
 	@Override
@@ -91,14 +114,33 @@ public class URLinkedList<E> implements URList<E>{
 		while (one!=tail){
 			
 			one=one.next();
+			if (one.element()==o){
+				return true;
+			}
 		}
 		return false;
 	}
 
 	@Override
 	public boolean containsAll(Collection c) {
-		// TODO Auto-generated method stub
-		return false;
+		E[] a=(E[])c.toArray();
+		URNode<E> curr = head;
+		int counter=0;
+		for (int i=0;i<(a.length);i++){
+			curr=head;
+			for (int j = 0;j<size;j++){
+				if (a[i].equals(curr.element())){
+					counter++;
+					break;
+				}
+				curr=curr.next();
+			}
+			
+		}
+		if (a.length==counter){
+			return true;
+		}else{
+		return false;}
 	}
 
 	@Override
@@ -122,14 +164,24 @@ public class URLinkedList<E> implements URList<E>{
 
 	@Override
 	public int indexOf(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		URNode<E> node = head;
+		for (int i=0;i<size;i++){
+			if (node.element()==o){
+				return i;
+			}
+			node=node.next();
+		}
+		return -1;
+			
+		}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
+		if (size()==0){
+			return true;
+		}else{	
 		return false;
+	}
 	}
 
 	@Override
@@ -147,9 +199,9 @@ public class URLinkedList<E> implements URList<E>{
 		public boolean hasNext() {
 			if(curr.next() != null){
 				return true;
-			}
+			}else{
 		return false;
-		}
+		}}
 
 		@Override
 		public E next() {
@@ -179,6 +231,9 @@ public class URLinkedList<E> implements URList<E>{
 			place.setPrev(null);
 			head=place;
 			}
+		}else if(curr==tail){
+			tail=curr.prev();
+			curr=new URNode<E> (null,null,null);
 		}
 		else{
 			place=curr.next();
@@ -192,20 +247,69 @@ public class URLinkedList<E> implements URList<E>{
 
 	@Override
 	public boolean remove(Object o) {
-		remove(o);
-		return true;
+		URNode<E> node = head;
+		URNode<E> front;
+		URNode<E> back;
+		
+		int i=0;
+		for (int j=0;j<size;j++){
+			if (node.equals(o)){
+				if (node==tail){
+					front=node.prev();
+					front.setNext(null);
+					tail=front;	
+				}else if (node==head){
+					front=node.next();
+					front.setPrev(null);
+					head=front;
+				}else{
+					front=node.prev();
+					back=node.next();
+					front.setNext(back);
+					back.setPrev(front);
+				}
+				size--;
+				i++;
+				break;
+				
+			}
+			node=node.next();
+		}
+		if (i==0){
+	 return false;}
+		else{
+			return true;}
 	}
 
 	@Override
 	public boolean removeAll(Collection c) {
-		// TODO Auto-generated method stub
-		return false;
+		if (containsAll(c)==true){
+		E[] a=(E[])c.toArray();
+		URNode<E> curr = head;
+		int counter=0;
+		for (int i=0;i<(a.length);i++){
+			curr=head;
+			for (int j = 0;j<size;j++){
+				if (a[i].equals(curr.element())){
+					remove(curr);
+					break;
+				}
+				curr=curr.next();
+			}
+			
+		}
+		return true;
+		}else return false;
 	}
 
 	@Override
-	public Object set(int index, Object element) {
-		// TODO Auto-generated method stub
-		return null;
+	public E set(int index, E element) {
+		URNode<E> place= head;
+		for (int i=0;i<index;i++){
+			place=place.next();
+		}
+		place.setElement(element);
+		return element;
 	}
 
 	@Override
@@ -215,8 +319,28 @@ public class URLinkedList<E> implements URList<E>{
 	}
 
 	@Override
-	public URList subList(int fromIndex, int toIndex) {
+	public URList<E> subList(int fromIndex, int toIndex) {
+		if (fromIndex<0||toIndex<0||fromIndex>(size()-1)||toIndex>(size()-1)){
+			throw new IndexOutOfBoundsException();
+		}
+		URList<E> a = new URLinkedList<E>();
+		URNode<E> first = head;
+		URNode<E> sec = head;
+		for(int i = 0; i< fromIndex; i++) {
+			first=first.next();
+		}
+		a.add(first.element());
+		sec=first;
+		for (int i=fromIndex;i<toIndex;i++){
+		sec=sec.next();
+		a.add(sec.element());
+		}
+		return a;
+	}
+
+	private Exception IndexOutOfBoundsException() {
 		// TODO Auto-generated method stub
+		System.out.println("A specified index was out of the object bounds.");
 		return null;
 	}
 
@@ -235,13 +359,13 @@ public class URLinkedList<E> implements URList<E>{
 	public void addFirst(E e) {
 		final URNode<E> f = head;
 		final URNode<E> newNode = new URNode<E>(e,null,f);
-		head = newNode;
 		if (head==null) {
-			head=tail = newNode;
+			head=tail= newNode;
 		}
 		else {
 			head.setPrev(newNode);
 		}
+		head=newNode;
 		size++;
 		
 	}
