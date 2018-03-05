@@ -23,8 +23,18 @@ public class TestClass {
 		URList<E> a = new URArrayList<E>();
 		a=(URList<E>)list3.subList(2,4);
 		System.out.println(Arrays.toString(a.toArray()));
-		
-
+		ArrayList<Object> list2 = new ArrayList<Object>();
+		list2.add('g');
+		list2.add('c');
+		list2.add('t');
+		list2.add(3);
+		list2.add(4);
+		list2.add(5);
+		list3.addAll(2,list2);
+		System.out.println(Arrays.toString(list3.toArray()));
+		System.out.println(list3.containsAll(list2));
+		System.out.println(list3.removeAll(list2));
+		System.out.println(Arrays.toString(list3.toArray()));
 
 
 
