@@ -2,6 +2,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
+
 public class URArrayList<E> implements URList<E> {
 
 	private int size;
@@ -52,13 +53,18 @@ public class URArrayList<E> implements URList<E> {
 		if (c == null) {
 			throw new NullPointerException();
 		}
-
-		ensureCapacity(size + c.size());
-		for (int i = size; i > index; i--) {
-			data[i] = data[i - 1];
+		Object[] a=(Object[])c.toArray();
+		ensureCapacity(size + a.length);
+		if (index!=size-1){
+		for (int j=index;j<size;j++){
+			data[j+a.length]=data[j];
 		}
-		data[index] = c;
+		}
+		for (int i=0;i<a.length;i++){
+		data[index]=(a[i]);	
+		index++;
 		size++;
+		}
 		return false;
 	}
 //works
@@ -78,15 +84,26 @@ public class URArrayList<E> implements URList<E> {
 		}
 		return false;
 	}
-// works, kinda. I think removeAll doesnt so it bugs.
+// works
 	@Override
 	public boolean containsAll(Collection c) {
+		int counter=0;
 		     for (Object e : c) {
-		            if (!contains(e)) {
-		                return false;
-		            }
+		            for (int j=0;j<size;j++){
+		            	if (e.equals(data[j])){
+		            		counter++;
+		            		System.out.println(counter);
+		            		break;
+		            	}
+		                
+		            }		            
 		     }
-		    return true;
+		     if (counter>=c.size()){
+		    	 System.out.println("counter: "+counter+" csize: "+c.size() );
+	            	return true;
+	            }else{
+		    return false;
+	            }
 		}
 //works
 	@Override
@@ -114,7 +131,7 @@ public class URArrayList<E> implements URList<E> {
 	public boolean isEmpty() {
 		return size == 0;
 	}
-// not sure
+//works
 	@Override
 	public Iterator iterator() {
 		// TODO Auto-generated method stub
@@ -171,17 +188,21 @@ public class URArrayList<E> implements URList<E> {
 	}
 
 	
-	/// needs fixing, pls help.
+	//works
 	@Override
 	public boolean removeAll(Collection c) {
 		if (c == null) {
 			throw new NullPointerException();
 		}
+		E[] a=(E[])c.toArray();
 		if (!containsAll(c)) {
 			return false;
-		}
-		remove(indexOf(c));
+		}else{
+			for (int i=0;i<a.length;i++)
+		remove(indexOf(a[i]));
 		return true;
+		}
+		
 	}
 //works
 	@Override
@@ -204,11 +225,17 @@ public class URArrayList<E> implements URList<E> {
 	public int size() {
 		return size;
 	}
-//?
+//works
 	@Override
 	public URList subList(int fromIndex, int toIndex) {
-		// TODO Auto-generated method stub
-		return null;
+		if (fromIndex<0||toIndex<0||fromIndex>(size()-1)||toIndex>(size()-1)){
+			throw new IndexOutOfBoundsException();
+		}
+		URList<E> a = new URArrayList<E>();
+		for (int i=fromIndex;i<toIndex;i++){
+			a.add((E)data[i]);
+		}
+		return a;
 	}
 
 //works
