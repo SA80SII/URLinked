@@ -24,9 +24,13 @@ public class URLinkedList<E> implements URList<E>{
 		URNode<E> secn = new URNode<E>(null,null,null);
 		URNode<E> thir = new URNode<E>(null,null,null);
 		int c=0;
+		if (element == null) {
+			throw new NullPointerException();
+		}
 		if (index!=0&&(index<0||index>=size())){
 			c++;
-			throw new IndexOutOfBoundsException();		
+			throw new IndexOutOfBoundsException();
+			
 		}
 		if (index==0){
 			first=head;
@@ -68,6 +72,10 @@ public class URLinkedList<E> implements URList<E>{
 
 	@Override
 	public boolean addAll(Collection c) {
+		if (c == null) {
+			throw new NullPointerException();
+		}
+	
 		E[] a=(E[])c.toArray();
 		URNode<E> curr = tail;
 		for (int i=0;i<a.length;i++){
@@ -82,6 +90,12 @@ public class URLinkedList<E> implements URList<E>{
 
 	@Override
 	public boolean addAll(int index, Collection c) {
+		if (c == null) {
+			throw new NullPointerException();
+		}
+		if (index!=0&&(index<0||index>=size())){
+			throw new IndexOutOfBoundsException();		
+		}
 		E[] a=(E[])c.toArray();
 		URNode<E> curr = head;
 		for (int j=0;j<index;j++){
@@ -123,6 +137,9 @@ public class URLinkedList<E> implements URList<E>{
 
 	@Override
 	public boolean containsAll(Collection c) {
+		if (c == null) {
+			throw new NullPointerException();
+		}
 		E[] a=(E[])c.toArray();
 		URNode<E> curr = head;
 		int counter=0;
@@ -164,6 +181,10 @@ public class URLinkedList<E> implements URList<E>{
 
 	@Override
 	public int indexOf(Object o) {
+		if (o == null) {
+			throw new NullPointerException();
+		}
+		
 		URNode<E> node = head;
 		for (int i=0;i<size;i++){
 			if (node.element()==o){
@@ -215,6 +236,9 @@ public class URLinkedList<E> implements URList<E>{
 
 	@Override
 	public E remove(int index) {
+		if (index!=0&&(index<0||index>=size())){
+			throw new IndexOutOfBoundsException();		
+		}
 		URNode<E> curr = head;
 		URNode<E> place;
 		int i = 0;
@@ -247,6 +271,10 @@ public class URLinkedList<E> implements URList<E>{
 
 	@Override
 	public boolean remove(Object o) {
+		if (o == null) {
+			throw new NullPointerException();
+		}
+		
 		URNode<E> node = head;
 		URNode<E> front;
 		URNode<E> back;
@@ -283,6 +311,10 @@ public class URLinkedList<E> implements URList<E>{
 
 	@Override
 	public boolean removeAll(Collection c) {
+		if (c == null) {
+			throw new NullPointerException();
+		}
+		
 		if (containsAll(c)==true){
 		E[] a=(E[])c.toArray();
 		URNode<E> curr = head;
@@ -304,6 +336,12 @@ public class URLinkedList<E> implements URList<E>{
 
 	@Override
 	public E set(int index, E element) {
+		if (element == null) {
+			throw new NullPointerException();
+		}
+		if (index!=0&&(index<0||index>=size())){
+			throw new IndexOutOfBoundsException();		
+		}
 		URNode<E> place= head;
 		for (int i=0;i<index;i++){
 			place=place.next();
@@ -357,6 +395,10 @@ public class URLinkedList<E> implements URList<E>{
 	// In
 	// Inserts the specified element at the beginning of this list.
 	public void addFirst(E e) {
+		if (e == null) {
+			throw new NullPointerException();
+		}
+	
 		final URNode<E> f = head;
 		final URNode<E> newNode = new URNode<E>(e,null,f);
 		if (head==null) {
@@ -371,6 +413,10 @@ public class URLinkedList<E> implements URList<E>{
 	}
 	// Appends the specified element to the end of this list.
 	public void addLast(E e) {
+		if (e == null) {
+			throw new NullPointerException();
+		}
+	
 		URNode<E> newNode = new URNode<E>(e,tail,null);
 		if (head == null) {
 			head = newNode;	

@@ -106,8 +106,11 @@ public class URArrayList<E> implements URList<E> {
 //works
 	@Override
 	public E get(int index) {
-		if (index < 0 || index >= size) {
-			throw new RuntimeException("OUT OF BOUNDS");
+		if (index < 0 || index > size) {
+			throw new ArrayIndexOutOfBoundsException(index);
+		}
+		if (data[index] == null) {
+			throw new NullPointerException();
 		}
 		return (E) data[index];
 
@@ -165,6 +168,10 @@ public class URArrayList<E> implements URList<E> {
 	public E remove(int index) {
 		if (index < 0 || index > size) {
 			throw new ArrayIndexOutOfBoundsException(index);
+		}
+		
+		if (data[index] == null) {
+			throw new NullPointerException();
 		}
 		E removed = (E) data[index];
 		for (int i = index + 1; i < size; i++) {
