@@ -18,7 +18,8 @@ public class TestClass {
 		list.add(3);
 		list.add(4);
 		list.add(5);
-
+		list.set(3, 9);
+		System.out.println(Arrays.toString(list.toArray()));
 		list3.add(0);
 		list3.add(1);
 		list3.add(2);
@@ -26,23 +27,23 @@ public class TestClass {
 		list3.add(4);
 		list3.add(5);
 		
-		System.out.println(Arrays.toString(list3.toArray()));
+		System.out.println(Arrays.toString(list.toArray()));
 		URList<E> a = new URArrayList<E>();
-		a=(URList<E>)list3.subList(2,4);
+		a=(URList<E>)list.subList(2,4);
 		System.out.println(Arrays.toString(a.toArray()));
-		ArrayList<Object> list2 = new ArrayList<Object>();
-		list2.add('g');
-		list2.add('c');
-		list2.add('t');
-		list2.add(3);
-		list2.add(4);
-		list2.add(5);
-		list3.addAll(2,list2);
-		System.out.println(Arrays.toString(list3.toArray()));
-		System.out.println(list3.containsAll(list2));
-		System.out.println(list3.removeAll(list2));
-		System.out.println(Arrays.toString(list3.toArray()));
-
+//		ArrayList<Object> list2 = new ArrayList<Object>();
+//		list2.add('g');
+//		list2.add('c');
+//		list2.add('t');
+//		list2.add(3);
+//		list2.add(4);
+//		list2.add(5);
+//		list3.addAll(2,list2);
+//		System.out.println(Arrays.toString(list3.toArray()));
+//		System.out.println(list3.containsAll(list2));
+//		System.out.println(list3.removeAll(list2));
+//		System.out.println(Arrays.toString(list3.toArray()));
+//
 
 
 //		System.out.println(list.get(0));
